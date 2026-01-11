@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert } from 'antd';
 
 export const ShareableUrlDisplay = ({ url, onCopy }) => {
-  // if (!url) return null;
+  if (!url) return null;
 
   return (
     <Alert

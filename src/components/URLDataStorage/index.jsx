@@ -7,14 +7,19 @@ import { DataInputSection } from './DataInputSection';
 import { ShareableUrlDisplay } from './ShareableUrlDisplay';
 import {  fileUtils, SUCCESS_MESSAGES, ERROR_MESSAGES } from '../../utils/index';
 
+import { SizeIndicator } from './SizeIndicator';
 import { InfoCard } from './InfoCard';
 
+const { Title, Paragraph } = Typography;
+import { Card, Typography, message } from 'antd';
 
 export const URLDataStorage = () => {
   const {
     title,
     content,
     shareableUrl,
+    estimatedSize,
+    isUrlSafe,
     isDataEmpty,
     setTitle,
     setContent,
@@ -25,7 +30,6 @@ export const URLDataStorage = () => {
 
 
   const handleShare = () => {
-    debugger
     if (isDataEmpty) {
       return;
     }
@@ -84,8 +88,11 @@ export const URLDataStorage = () => {
       }}
     >
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-
-
+        <Card>
+          <Title level={2}>URL Data Storage</Title>
+          <Paragraph type="secondary">
+            Store your data directly in the URL - no server needed!
+          </Paragraph>
 
           <div style={{ marginTop: 24 }}>
             <DataInputSection
@@ -95,7 +102,7 @@ export const URLDataStorage = () => {
               onContentChange={setContent}
             />
 
-
+            <SizeIndicator size={estimatedSize} isUrlSafe={isUrlSafe} />
 
             <ActionButtons
               onShare={handleShare}
@@ -106,10 +113,10 @@ export const URLDataStorage = () => {
             />
           </div>
 
+          <ShareableUrlDisplay url={shareableUrl} onCopy={handleCopyUrl} />
+
           <InfoCard />
-
-          <ShareableUrlDisplay url={shareableUrl} onCopy={handleCopyUrl} />          
-
+        </Card>
       </div>
     </div>
   );
